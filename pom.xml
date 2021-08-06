@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>bigdata.consumer</groupId>
-    <artifactId>cdc</artifactId>
-    <version>0.1</version>
+    <artifactId>cdc-consumer</artifactId>
+    <version>0.2</version>
 
     <properties>
         <apollo.version>1.2.0</apollo.version>

@@ -19,7 +19,7 @@ public class ResourceConnection {
         return null;
     }
 
-    public static Connection createRplConn(PgConfig pgconfig) {
+    public static Connection createRplConn(TargetConfig pgconfig) {
         try {
 
             Class.forName("org.postgresql.Driver").newInstance();

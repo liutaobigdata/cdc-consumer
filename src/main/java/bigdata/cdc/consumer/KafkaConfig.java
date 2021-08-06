@@ -1,24 +1,14 @@
 package bigdata.cdc.consumer;
 
-import org.apache.kafka.clients.CommonClientConfigs;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.config.SslConfigs;
 
 import java.util.Properties;
 
 public class KafkaConfig {
     public static Properties consumerProperties(String kafkaHost, String location, String groupId) {
         Properties props = new Properties();
-        if (System.getProperty("environment").equalsIgnoreCase("test")) {
-            //与SASL路径类似，该文件也不能被打包到JAR中。
-            props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, location);
-            props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "KafkaOnsClient");
-            props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
-            props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-            props.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "");
-        }
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHost);
 

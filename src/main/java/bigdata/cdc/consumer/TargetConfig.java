@@ -1,6 +1,6 @@
 package bigdata.cdc.consumer;
 
-public class PgConfig {
+public class TargetConfig {
 
     private  String url;
     private  String user;
@@ -30,15 +30,15 @@ public class PgConfig {
         this.password = password;
     }
 
-    public  PgConfig url(String url){
+    public TargetConfig url(String url){
         this.url=url;
         return  this;
     }
-    public  PgConfig user(String user){
+    public TargetConfig user(String user){
         this.user=user;
         return  this;
     }
-    public  PgConfig password(String password){
+    public TargetConfig password(String password){
         this.password=password;
         return  this;
     }

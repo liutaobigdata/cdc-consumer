@@ -57,9 +57,6 @@ public class BootstrapConsumer {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String line = null;
             while ((line = br.readLine()) != null) {
-                if (line.contains("#")) {
-                    continue;
-                }
                 String[] kV = line.split("=");
                 prop.put(kV[0].trim(), kV[1] != null ? kV[1].trim() : "");
 
@@ -84,8 +81,6 @@ public class BootstrapConsumer {
             dingTalkToken = properties.getProperty("dingTalk_token");
             checkConnectionTimeRate = properties.getProperty("check_connection_rate");
             dbType = properties.getProperty("target_db_type");
-            System.setProperty("environment", properties.getProperty("environment"));
-
 
             BootstrapConsumer cdcConsumer = new BootstrapConsumer();
 
@@ -133,7 +128,7 @@ public class BootstrapConsumer {
             this.topic = topic;
             this.parseEvent = new ParseEvent();
             this.notify = new Notify(dingTalkToken);
-            PgConfig pgConfig = new PgConfig().url(url).user(user).password(password);
+            TargetConfig pgConfig = new TargetConfig().url(url).user(user).password(password);
             try {
 
                 scheduledThreadPoolExecutor.scheduleAtFixedRate(() -> {
