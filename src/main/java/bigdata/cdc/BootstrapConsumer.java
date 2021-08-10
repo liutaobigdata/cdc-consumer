@@ -42,7 +42,7 @@ public class BootstrapConsumer {
     private static String kafkaTopic;
     private static String kafkaConsumerGroup;
     private static int kafkaConsumerNum;
-    private static String kafkaSSLLocation;
+    private static String kafkaSSLLocation = null;
     private static String checkConnectionTimeRate;
 
     private volatile static String dbType;
@@ -70,17 +70,20 @@ public class BootstrapConsumer {
     public static void main(String[] args) {
         try {
             Properties properties = config(args[0]);
-            url = properties.getProperty("target_jdbc_url");
-            user = properties.getProperty("target_user");
-            password = properties.getProperty("target_password");
-            kafkaServer = properties.getProperty("kafka_hosts");
-            kafkaTopic = properties.getProperty("kafka_topic");
-            kafkaConsumerGroup = properties.getProperty("kafka_consumer_group");
-            kafkaConsumerNum = Integer.valueOf(properties.getProperty("kafka_consumer_num"));
-            kafkaSSLLocation = properties.getProperty("kafka_ssl_location");
-            dingTalkToken = properties.getProperty("dingTalk_token");
-            checkConnectionTimeRate = properties.getProperty("check_connection_rate");
-            dbType = properties.getProperty("target_db_type");
+            url = properties.getProperty("target_jdbc_url").trim();
+            user = properties.getProperty("target_user").trim();
+            password = properties.getProperty("target_password").trim();
+            kafkaServer = properties.getProperty("kafka_hosts").trim();
+            kafkaTopic = properties.getProperty("kafka_topic").trim();
+            kafkaConsumerGroup = properties.getProperty("kafka_consumer_group").trim();
+            kafkaConsumerNum = Integer.valueOf(properties.getProperty("kafka_consumer_num").trim());
+
+            if (properties.containsKey("kafka_ssl_location")) {
+                kafkaSSLLocation = properties.getProperty("kafka_ssl_location", null).trim();
+            }
+            dingTalkToken = properties.getProperty("dingTalk_token").trim();
+            checkConnectionTimeRate = properties.getProperty("check_connection_rate").trim();
+            dbType = properties.getProperty("target_db_type").trim();
 
             BootstrapConsumer cdcConsumer = new BootstrapConsumer();
 
